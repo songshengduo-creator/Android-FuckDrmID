@@ -19,9 +19,13 @@ jobs:
         with:
           ndk-version: r25c
 
+      - name: Remove incompatible flags
+        run: |
+          find . -type f -name "*.mk" -exec sed -i 's/-fvisibility-global-new-delete=force-hidden//g' {} +
+
       - name: Build with ndk-build
         run: |
-          $ANDROID_NDK_HOME/ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=./Android.mk NDK_APPLICATION_MK=./Application.mk APP_CPPFLAGS="-fpermissive -Wno-pointer-sign-convert -Qunused-arguments"
+          $ANDROID_NDK_HOME/ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=./Android.mk NDK_APPLICATION_MK=./Application.mk APP_CPPFLAGS="-fpermissive"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
