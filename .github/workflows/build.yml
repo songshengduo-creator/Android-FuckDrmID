@@ -1,8 +1,6 @@
 name: Build NDK
 
 on:
-  push:
-    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
@@ -19,7 +17,7 @@ jobs:
         with:
           ndk-version: r25b
 
-      - name: Build with ndk-build
+- name: Build with ndk-build
         run: |
           $ANDROID_NDK_HOME/ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=./Android.mk NDK_APPLICATION_MK=./Application.mk APP_CPPFLAGS="-fpermissive"
 
