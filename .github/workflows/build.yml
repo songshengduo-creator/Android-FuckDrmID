@@ -1,7 +1,7 @@
 name: Build NDK
 
 on:
-  workflow_dispatch: # 支持手动点击运行
+  workflow_dispatch:
 
 jobs:
   build:
@@ -19,7 +19,7 @@ jobs:
 
       - name: Build with ndk-build
         run: |
-          $ANDROID_NDK_HOME/ndk-build
+          $ANDROID_NDK_HOME/ndk-build NDK_PROJECT_PATH=.
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
