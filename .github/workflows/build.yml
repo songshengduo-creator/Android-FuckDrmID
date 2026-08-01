@@ -1,0 +1,28 @@
+name: Build NDK
+
+on:
+  workflow_dispatch: # 支持手动点击运行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup NDK
+        uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: r25b
+
+      - name: Build with ndk-build
+        run: |
+          $ANDROID_NDK_HOME/ndk-build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-libs
+          path: libs/
